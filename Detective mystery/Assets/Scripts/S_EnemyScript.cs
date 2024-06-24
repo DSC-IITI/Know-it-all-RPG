@@ -6,6 +6,11 @@ public class S_EnemyScript : MonoBehaviour
 {
     public GameObject Enemy;
     public S_QuestTracker questTracker;
+    public float speed = 2.0f;
+    public int damage = 10;
+
+    private Transform player;
+    private PlayerHealth playerHealth;
     public void Kill(){
         Debug.Log(questTracker.questIndicator.name);
         if (questTracker.questIndicator.name == Enemy.name){
@@ -16,10 +21,28 @@ public class S_EnemyScript : MonoBehaviour
         }
         Destroy(Enemy);
     }
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerHealth = player.GetComponent<PlayerHealth>();
+    }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Move towards the player
+        if (player != null)
+        {
+            Vector3 direction = player.position - transform.position;
+            direction.Normalize();
+            transform.position += direction * speed * Time.deltaTime;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            playerHealth.TakeDamage(damage);
+        }
     }
 }
