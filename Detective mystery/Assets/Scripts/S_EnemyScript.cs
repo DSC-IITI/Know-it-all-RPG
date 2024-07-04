@@ -7,13 +7,18 @@ public class S_EnemyScript : MonoBehaviour
     public GameObject Enemy;
     public S_QuestTracker questTracker;
     public float speed = 2.0f;
-    public int damage = 10;
+    public float damage = 0.01f; // Changed to float to allow decimal values
+    public float attackInterval = 5.0f; // Time between each attack
 
     private Transform player;
     private PlayerHealth playerHealth;
-    public void Kill(){
+    private Coroutine damageCoroutine;
+
+    public void Kill()
+    {
         Debug.Log(questTracker.questIndicator.name);
-        if (questTracker.questIndicator.name == Enemy.name){
+        if (questTracker.questIndicator.name == Enemy.name)
+        {
             questTracker.questLevelCount++;
             Debug.Log("Done12");
             questTracker.ChecknUpdateQuest();
@@ -21,6 +26,7 @@ public class S_EnemyScript : MonoBehaviour
         }
         Destroy(Enemy);
     }
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -30,7 +36,7 @@ public class S_EnemyScript : MonoBehaviour
     void Update()
     {
         // Move towards the player
-        if (player != null)
+        if (player != null && damageCoroutine == null)
         {
             Vector3 direction = player.position - transform.position;
             direction.Normalize();
@@ -42,7 +48,26 @@ public class S_EnemyScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            damageCoroutine = StartCoroutine(DamagePlayerOverTime());
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
+        }
+    }
+
+    IEnumerator DamagePlayerOverTime()
+    {
+        while (true)
+        {
             playerHealth.TakeDamage(damage);
+            Debug.Log("Player attacked.");
+            yield return new WaitForSeconds(attackInterval);
         }
     }
 }

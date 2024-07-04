@@ -3,36 +3,33 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public Slider healthBarSlider;
-
-    private int currentHealth;
+    public float maxHealth = 100f; // Changed to float to allow decimal values
+    public float currentHealth; // Changed to float to allow decimal values
+    public Image healthBar;
 
     void Start()
     {
         currentHealth = maxHealth;
-        healthBarSlider.maxValue = maxHealth;
-        healthBarSlider.value = currentHealth;
+        UpdateHealthBar();
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float damage)
     {
-        currentHealth -= amount;
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
-        healthBarSlider.value = currentHealth;
+        currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
+        UpdateHealthBar();
 
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
-            Die();
+            // Handle player death
+            Debug.Log("Player Dead");
         }
     }
 
-    void Die()
+    void UpdateHealthBar()
     {
-        // Handle player death (e.g., reload scene, show game over screen, etc.)
-        Debug.Log("Player Died");
+        float healthPercent = currentHealth / maxHealth;
+        Debug.Log("Updating Health Bar: " + healthPercent);
+        healthBar.fillAmount = healthPercent;
     }
 }
