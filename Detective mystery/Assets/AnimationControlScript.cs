@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationControlScript : MonoBehaviour
 {
-
+    public bool isDead = false;
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -54,6 +54,9 @@ public class AnimationControlScript : MonoBehaviour
         }
         if(!Shoot && isShooting){
             animator.SetBool("isShooting", false);
+        }
+        if(isDead){
+            animator.SetBool("isDead", true);
         }
 
     }

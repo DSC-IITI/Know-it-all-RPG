@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Utility;
 using UnityEngine;
 
 public class S_EnemyScript : MonoBehaviour
@@ -40,7 +41,7 @@ public class S_EnemyScript : MonoBehaviour
         {
             Vector3 direction = player.position - transform.position;
             direction.Normalize();
-            transform.position += direction * speed * Time.deltaTime;
+            transform.position += direction.ProjectOntoPlane(new Vector3(0, 1)) * speed * Time.deltaTime;
         }
     }
 

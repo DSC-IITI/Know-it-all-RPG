@@ -1,8 +1,10 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class S_MovementScript : MonoBehaviour
 {
+    public AnimationControlScript anim;
     public CharacterController cc;
     public Transform cam;
     public float speed = 6f;

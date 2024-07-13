@@ -21,6 +21,7 @@ public class S_ShootingScript : MonoBehaviour
     void Shoot(){
         RaycastHit hit;
         if(Physics.Raycast(player.transform.position, player.transform.forward, out hit, range)){
+            Debug.Log("Shoot");
             Debug.Log(hit.transform.name);
             try {
                 S_EnemyScript gb = hit.transform.GetComponent<S_EnemyScript>();
