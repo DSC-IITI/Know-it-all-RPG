@@ -8,6 +8,7 @@ using UnityEngine;
 public class S_DialogueScript : MonoBehaviour
 {
     public List<List<string>> dialogue = new List<List<string>>{};
+    //TODO: Convert this to a struct with enums
     public S_MovementScript mvmscrpt;
     public S_QuestTracker questTracker;
 
@@ -15,6 +16,11 @@ public class S_DialogueScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //TODO: API Integration, Player Prefs, Voice (Optional), 
+        /*
+            {"req" : ["Player", "Hello how are you?", "Context"]}
+            {"res" : ["Agent", "Hello IM good"]}
+        */
         List<string> Lis1 = new List<string>{"Agent", "Hello"};
         List<string> Lis2 = new List<string>{"Agent", "How are you doing today?"};
         dialogue.Add(Lis1);

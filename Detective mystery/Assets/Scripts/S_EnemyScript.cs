@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Cinemachine.Utility;
 using UnityEngine;
 
+//TODO: Make the script active after the quest progresses to that 
+
 public class S_EnemyScript : MonoBehaviour
 {
     public GameObject Enemy;

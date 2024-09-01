@@ -5,6 +5,8 @@ using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//TODO: Learn singleton pattern
+
 public class S_QuestTracker : MonoBehaviour
 {
     public List<List<string>> testQuest = new();
