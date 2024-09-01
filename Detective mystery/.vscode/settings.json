@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Detective mystery.sln"
+    "dotnet.defaultSolution": "Detective mystery.sln",
+    "pieces.cloudCapabilities": "Blended",
+    "pieces.telemetry": true
 }
